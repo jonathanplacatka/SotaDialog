@@ -14,11 +14,7 @@ class Dialog {
     private int rmsSamples;
     private int smoothSamples;
 
-    private double[] samples;
-    private double[] rmsData;
-    private double[] log;
-    private double[] smoothed;
-    private double[] derivative;
+    private double[] samples, rmsData, log, smoothed, derivative;
 
     private AudioFormat format;
     private DataLine.Info lineInfo;
@@ -51,7 +47,7 @@ class Dialog {
         double[] derivativeKernel = new double[]{-1, 1};
 
         try {
-            
+
             initWriters();
 
             TargetDataLine mic = (TargetDataLine)AudioSystem.getLine(this.lineInfo);
@@ -175,9 +171,9 @@ class Dialog {
         }
     }
 
-    public void writeToCSVs(int offset, int len) throws IOException {
+    public void writeToCSVs(int begin, int end) throws IOException {
         for(CsvWriter w : this.writers) {
-            w.write(offset, len);
+            w.write(begin, end);
         }
     }
 
